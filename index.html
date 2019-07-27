@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <title>Leaflet sample</title>
+        <link rel="stylesheet" href="style/leaflet.css" />
+        <script src="style/leaflet.js"></script>
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            tr:hover {background-color: #f5f5f5;}
+
+            table, th, td {
+                font-size: xx-small;
+                border: 1px solid black;
+            }
+
+            caption{
+                font-style: italic;
+                font-size: x-small;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id = "mapid" style = "height:1080px;"></div>
+        <div id = "demo" style = "height:720px;"></div>
+        <script src="dataSource.js"></script>
+        <script>
+            // initialize the map
+            var mymap = L.map('mapid').setView([-7.250445, 112.768845], 13);
+            var marker;
+            // load a tile layer
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox.streets',
+                accessToken: 'pk.eyJ1IjoiYnJ5YW5hZ2FtayIsImEiOiJjanlpMTlnMjAwNWwxM2Rsczh1NGpxdGtpIn0.T-nScSqUpvDg5cxWL7IruQ'
+            }).addTo(mymap);
+
+            for (var i = 0; i < dataSource.length; i++){
+                marker = L.circle([dataSource[i].lat, dataSource[i].long],{
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 500
+                }).addTo(mymap);
+
+                marker.bindPopup(
+                    "<div class='leaflet-popup-pane'>" +
+                        "<h5>Area : " + dataSource[i].namaArea + "</h5>" +
+                        "<div class='leaflet-popup-content'>" +
+                            "<table>" +
+                            "<caption>Metro TV</caption>" +
+                            "<tr>" +
+                            "<th>Kecepatan</th>" +
+                            "<th>Field Strength (dB)</th>" +
+                            "<th>Status</th>" +
+                            "<th>SNR (dB)</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>0 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS0-a"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST0-a"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR0-a"] +"</td>" +
+                            "</tr>"+
+                            "<tr>" +
+                            "<td>20 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS1-a"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST1-a"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR1-a"] +"</td>" +
+                            "</tr>"+
+                            "<tr>" +
+                            "<td>40 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS2-a"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST2-a"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR2-a"] +"</td>" +
+                            "</tr>"+
+                            "</table>" +
+                        "</div>" +
+                        "<div class='leaflet-popup-content'>" +
+                            "<table>" +
+                            "<caption>Trans TV</caption>" +
+                            "<tr>" +
+                            "<th>Kecepatan</th>" +
+                            "<th>Field Strength (dB)</th>" +
+                            "<th>Status</th>" +
+                            "<th>SNR (dB)</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>0 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS0-b"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST0-b"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR0-b"] +"</td>" +
+                            "</tr>"+
+                            "<tr>" +
+                            "<td>20 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS1-b"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST1-b"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR1-b"] +"</td>" +
+                            "</tr>"+
+                            "<tr>" +
+                            "<td>40 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS2-b"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST2-b"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR2-b"] +"</td>" +
+                            "</tr>"+
+                            "</table>" +
+                        "</div>" +
+                        "<div class='leaflet-popup-content'>" +
+                            "<table>" +
+                            "<caption>TVRI</caption>" +
+                            "<tr>" +
+                            "<th>Kecepatan</th>" +
+                            "<th>Field Strength (dB)</th>" +
+                            "<th>Status</th>" +
+                            "<th>SNR (dB)</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>0 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS0-c"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST0-c"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR0-c"] +"</td>" +
+                            "</tr>"+
+                            "<tr>" +
+                            "<td>20 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS1-c"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST1-c"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR1-c"] +"</td>" +
+                            "</tr>"+
+                            "<tr>" +
+                            "<td>40 Km/h </td>" +
+                            "<td>"+ dataSource[i]["FS2-c"] +"</td>" +
+                            "<td>"+ dataSource[i]["ST2-c"] +"</td>" +
+                            "<td>"+ dataSource[i]["SNR2-c"] +"</td>" +
+                            "</tr>"+
+                            "</table>" +
+                        "</div>" +
+                    "</div>"
+                );
+            }
+        </script>
+    </body>
+</html>
